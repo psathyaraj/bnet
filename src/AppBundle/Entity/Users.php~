@@ -5,6 +5,8 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 /**
  * Users
@@ -79,25 +81,50 @@ class Users
      *
      * @ORM\Column(name="status", type="smallint")
      */
-    private $status;
+    private $status = 0;
     
     /**
-     * @ORM\OneToMany(targetEntity="Locations", mappedBy="user")
+     * @var string
+     *
+     * @ORM\Column(name="location_name", type="string", length=128)
      */
-    protected $locations;
+    private $location_name;
     
     /**
-     * @ORM\OneToMany(targetEntity="LastDonations", mappedBy="user")
+     * @var decimal
+     *
+     * @ORM\Column(name="latitude", type="decimal", precision=15, scale=6)
      */
-    protected $last_donations;
+    private $latitude;
     
-    public function __construct()
-    {
-    	$this->locations = new ArrayCollection();
-    	$this->last_donations =  new ArrayCollection();
-    }
-
-
+    /**
+     * @var decimal
+     *
+     * @ORM\Column(name="longitude", type="decimal", precision=15, scale=6)
+     */
+    private $longitude;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="blood_date", type="date", nullable=true)
+     */
+    private $blood_date;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="platelates_date", type="date", nullable=true)
+     */
+    private $platelates_date;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="plasma_date", type="date", nullable=true)
+     */
+    private $plasma_date;
+    
     /**
      * Get id
      *
@@ -366,5 +393,149 @@ class Users
     public function getGender()
     {
         return $this->gender;
+    }
+
+    /**
+     * Set locationName
+     *
+     * @param string $locationName
+     *
+     * @return Users
+     */
+    public function setLocationName($locationName)
+    {
+        $this->location_name = $locationName;
+
+        return $this;
+    }
+
+    /**
+     * Get locationName
+     *
+     * @return string
+     */
+    public function getLocationName()
+    {
+        return $this->location_name;
+    }
+
+    /**
+     * Set latitude
+     *
+     * @param string $latitude
+     *
+     * @return Users
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    /**
+     * Get latitude
+     *
+     * @return string
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Set longitude
+     *
+     * @param string $longitude
+     *
+     * @return Users
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * Get longitude
+     *
+     * @return string
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * Set bloodDate
+     *
+     * @param \DateTime $bloodDate
+     *
+     * @return Users
+     */
+    public function setBloodDate($bloodDate)
+    {
+        $this->blood_date = $bloodDate;
+
+        return $this;
+    }
+
+    /**
+     * Get bloodDate
+     *
+     * @return \DateTime
+     */
+    public function getBloodDate()
+    {
+        return $this->blood_date;
+    }
+
+    /**
+     * Set platelatesDate
+     *
+     * @param \DateTime $platelatesDate
+     *
+     * @return Users
+     */
+    public function setPlatelatesDate($platelatesDate)
+    {
+        $this->platelates_date = $platelatesDate;
+
+        return $this;
+    }
+
+    /**
+     * Get platelatesDate
+     *
+     * @return \DateTime
+     */
+    public function getPlatelatesDate()
+    {
+        return $this->platelates_date;
+    }
+
+    /**
+     * Set plasmaDate
+     *
+     * @param \DateTime $plasmaDate
+     *
+     * @return Users
+     */
+    public function setPlasmaDate($plasmaDate)
+    {
+        $this->plasma_date = $plasmaDate;
+
+        return $this;
+    }
+
+    /**
+     * Get plasmaDate
+     *
+     * @return \DateTime
+     */
+    public function getPlasmaDate()
+    {
+        return $this->plasma_date;
     }
 }

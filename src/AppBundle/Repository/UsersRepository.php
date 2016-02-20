@@ -10,4 +10,24 @@ namespace AppBundle\Repository;
  */
 class UsersRepository extends \Doctrine\ORM\EntityRepository
 {
+	const ACTIVE_STATUS = 1;
+	const TEMPORARY_BLOCKED_STATUS = 2;
+	const PERMANENTLY_BLOCKED_STATUS = 3;
+	
+	public function loadUserByAuthToken($token){
+		$email = base64_decode();
+		$q = $this
+		->createQueryBuilder('u')
+		->where('u.email = :email')
+		->setParameter('email', $username)
+		->getQuery()
+		;
+		
+		try {
+			$user = $q->getSingleResult();
+		} catch (\Exception $e) {
+			throw new HttpException(Response::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());
+		}
+		return $user;
+	}
 }
