@@ -31,7 +31,7 @@
 
         "richsage/rms-push-notifications-bundle": "dev-master",
         "aferrandini/phpqrcode": "1.0.1",
-        "endroid/qrcode-bundle": "^1.6"
+        "endroid/qrcode-bundle": "^1.6",
 
         "friendsofsymfony/rest-bundle": "^1.7",
         "jms/serializer-bundle": "^1.1"
