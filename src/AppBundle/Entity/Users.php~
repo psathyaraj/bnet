@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 
 /**
@@ -16,7 +17,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @UniqueEntity("email")
  * @UniqueEntity("phno")
  */
-class Users
+class Users implements UserInterface
 {
     /**
      * @var int
@@ -124,6 +125,8 @@ class Users
      * @ORM\Column(name="plasma_date", type="date", nullable=true)
      */
     private $plasma_date;
+    
+    private $salt;
     
     /**
      * Get id
@@ -537,5 +540,61 @@ class Users
     public function getPlasmaDate()
     {
         return $this->plasma_date;
+    }
+    
+/**
+     * @inheritDoc
+     */
+    public function getUsername()
+    {
+    	return $this->email;
+    }
+    
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     * @return User
+     */
+    public function setSalt($salt)
+    {
+    	$this->salt = $salt;
+    
+    	return $this;
+    }
+    
+    /**
+     * @inheritDoc
+     */
+    public function getSalt()
+    {
+    	// you *may* need a real salt depending on your encoder
+    	// see section on salt below
+    	return null;
+    }
+    
+    /**
+     * @inheritDoc
+     */
+    public function getPassword()
+    {
+    	// you *may* need a real salt depending on your encoder
+    	// see section on salt below
+    	return null;
+    }
+    
+    /**
+     * @inheritDoc
+     */
+    public function getRoles()
+    {
+    	return array('ROLE_USER');
+    }
+    
+    /**
+     * @inheritDoc
+     */
+    public function eraseCredentials()
+    {
     }
 }

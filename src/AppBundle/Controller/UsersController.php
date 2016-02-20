@@ -31,7 +31,7 @@ class UsersController extends Controller
 	 * 	},
 	 *  statusCodes={
 	 *         200="Returned when successful Response data = {'code':'200','message':'Success'}",
-	 *         400="Returned when invalid date Response data = {'code':'200','message':'Please check the parameter'}",
+	 *         400="Returned when invalid date Response data = {'code':'400','message':'Please check the parameter'}",
 	 *  }
 	 * )
      * @Route("/", name="users_new")
@@ -72,5 +72,28 @@ class UsersController extends Controller
         }
 
         return array('code'=>Response::HTTP_BAD_REQUEST, 'message'=>'Please check the parameter');
+    }
+    
+    
+    /**
+     * Get User Profile Api
+     *
+     *@ApiDoc(
+     *  description="Get User Profile",
+     *  input="",
+     *  parameters={
+     * 	},
+     *  statusCodes={
+     *         200="Returned when successful Response data = {'code':'200','user':{}}",
+     *         400="Returned when invalid date Response data = {'code':'400','message':'Invalid Request'}",
+     *  }
+     * )
+     * @Route("/", name="get_user")
+     * @Method({"GET"})
+     */
+    public function getUserApi(Request $request)
+    {
+    	$user = $this->getUser();
+    	return array('code'=>Response::HTTP_ACCEPTED, 'message'=>$user);
     }
 }

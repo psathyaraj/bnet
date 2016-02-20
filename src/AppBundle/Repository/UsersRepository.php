@@ -1,6 +1,11 @@
 <?php
 
 namespace AppBundle\Repository;
+use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+
 
 /**
  * UsersRepository
@@ -15,11 +20,11 @@ class UsersRepository extends \Doctrine\ORM\EntityRepository
 	const PERMANENTLY_BLOCKED_STATUS = 3;
 	
 	public function loadUserByAuthToken($token){
-		$email = base64_decode();
+		$email = base64_decode($token);
 		$q = $this
 		->createQueryBuilder('u')
 		->where('u.email = :email')
-		->setParameter('email', $username)
+		->setParameter('email', $email)
 		->getQuery()
 		;
 		

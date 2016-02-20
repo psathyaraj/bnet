@@ -27,7 +27,7 @@ class ApiUserProvider implements UserProviderInterface
 			);
 		}
 		
-		return $this->em->getRepository('AppBundle:Users')->loadUserByAuthToken($token);
+		return $this->em->getRepository('AppBundle:Users')->loadUserByAuthToken($username);
 		
 	}
 
