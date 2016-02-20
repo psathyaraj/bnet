@@ -1,6 +1,11 @@
 <?php
 
 namespace AppBundle\Repository;
+use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+
 
 /**
  * UsersRepository
@@ -10,4 +15,24 @@ namespace AppBundle\Repository;
  */
 class UsersRepository extends \Doctrine\ORM\EntityRepository
 {
+	const ACTIVE_STATUS = 1;
+	const TEMPORARY_BLOCKED_STATUS = 2;
+	const PERMANENTLY_BLOCKED_STATUS = 3;
+	
+	public function loadUserByAuthToken($token){
+		$email = base64_decode($token);
+		$q = $this
+		->createQueryBuilder('u')
+		->where('u.email = :email')
+		->setParameter('email', $email)
+		->getQuery()
+		;
+		
+		try {
+			$user = $q->getSingleResult();
+		} catch (\Exception $e) {
+			throw new HttpException(Response::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());
+		}
+		return $user;
+	}
 }

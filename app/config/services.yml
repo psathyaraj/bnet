@@ -4,6 +4,20 @@ parameters:
 #    parameter_name: value
 
 services:
+
     request_donors:
         class: AppBundle\Services\RequestDonors
         arguments: ['@service_container']
+
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
+     api_user_provider:
+        class:     AppBundle\Utils\Security\ApiUserProvider
+        arguments: ["@doctrine.orm.entity_manager"]
+        
+     api_authenticator:
+        class:     AppBundle\Utils\Security\ApiAuthenticator
+        arguments: ["@api_user_provider","@doctrine.orm.entity_manager","@service_container"]
+

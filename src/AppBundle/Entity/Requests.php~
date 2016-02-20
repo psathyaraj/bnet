@@ -28,6 +28,13 @@ class Requests
      * @ORM\Column(name="type", type="integer")
      */
     private $type;
+    
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="blood_group", type="integer")
+     */
+    private $bloodGroup;
 
     /**
      * @var int
@@ -292,5 +299,29 @@ class Requests
     	if ($this->getCreatedAt() == null) {
     		$this->setCreatedAt(new \DateTime('now'));
     	}
+    }
+
+    /**
+     * Set bloodGroup
+     *
+     * @param integer $bloodGroup
+     *
+     * @return Requests
+     */
+    public function setBloodGroup($bloodGroup)
+    {
+        $this->bloodGroup = $bloodGroup;
+
+        return $this;
+    }
+
+    /**
+     * Get bloodGroup
+     *
+     * @return integer
+     */
+    public function getBloodGroup()
+    {
+        return $this->bloodGroup;
     }
 }
