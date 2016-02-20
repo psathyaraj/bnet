@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Requests;
 use AppBundle\Form\RequestsType;
-
+use Endroid\QrCode\QrCode;
 /**
  * Requests controller.
  *
@@ -41,7 +41,8 @@ class RequestsController extends Controller
      */
     public function newAction(Request $request)
     {
-        $request = new Requests();
+        $this->get("request_donors")->sendPushNotification("1","1");
+        /*$request = new Requests();
         $form = $this->createForm('AppBundle\Form\RequestsType', $request);
         $form->handleRequest($request);
 
@@ -56,25 +57,26 @@ class RequestsController extends Controller
         return $this->render('requests/new.html.twig', array(
             'request' => $request,
             'form' => $form->createView(),
-        ));
+        ));*/
+
+        die("11111");
     }
 
-    /**
+
+/**
      * Finds and displays a Requests entity.
      *
-     * @Route("/{id}", name="requests_show")
+     * @Route("/{id}/requestQR", name="requests_qr")
      * @Method("GET")
      */
-    public function showAction(Requests $request)
+    public function displayAction(Request $request)
     {
-        $deleteForm = $this->createDeleteForm($request);
-
-        return $this->render('requests/show.html.twig', array(
-            'request' => $request,
-            'delete_form' => $deleteForm->createView(),
+        \PHPQRCode\QRcode::png("test", __DIR__."/../../../web/tmp/qrcode.png", 'L', 4, 4);
+        return $this->render('requests/display.html.twig', array(
+                    'request' => $request
         ));
-    }
 
+    }
     /**
      * Displays a form to edit an existing Requests entity.
      *
@@ -105,7 +107,7 @@ class RequestsController extends Controller
     /**
      * Deletes a Requests entity.
      *
-     * @Route("/{id}", name="requests_delete")
+     * @Route("/del/{id}", name="requests_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Requests $request)
