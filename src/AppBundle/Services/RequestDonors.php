@@ -15,7 +15,7 @@ class RequestDonors
 
         }
     public function getDonors(){
-            /*$allowedDonorsBloodGroupArray = Utils::$bloodTypeAndGroupArray[$this->$bloodType][$this->$bloodGroup];
+            $allowedDonorsBloodGroupArray = Utils::$bloodTypeAndGroupArray[$this->$bloodType][$this->$bloodGroup];
             $qb = $em->createQueryBuilder();
             $qb->select('u.device_token' )
                ->from('Users', 'u')
@@ -24,7 +24,7 @@ class RequestDonors
                ->where('u.dob => ?2 && u.dob <= ?3')
                ->where('u.blood_group in ?4');
             $query = $qb->getQuery();
-            $array = $query->getArrayResult();*/
+            $array = $query->getArrayResult();
 
     }
 
