@@ -11,6 +11,9 @@ use AppBundle\Form\HospitalsType;
 use AppBundle\Entity\AppBundle\Entity;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Entity\Requests;
+use AppBundle\Form\RequestsType;
+use AppBundle\Repository\RequestsRepository;
 
 /**
  * Hospitals controller.
@@ -47,6 +50,47 @@ class HospitalsController extends Controller
 		if ($form->isValid()) {
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($hospital);
+			$em->flush();
+	
+			return array('code'=>Response::HTTP_ACCEPTED, 'message'=>'Success');
+		}
+	
+		return array('code'=>Response::HTTP_BAD_REQUEST, 'message'=>'Please check the parameter');
+	}
+	
+	/**
+	 * Register Hospital Api
+	 *
+	 *@ApiDoc(
+	 *  description="Register New Requests for Blood, Plasma, Platelets",
+	 *  input="AppBundle\Entity\Requests",
+	 *  parameters={
+	 * 	},
+	 *  statusCodes={
+	 *         200="Returned when successful Response data = {'code':'200','message':'Success'}",
+	 *         400="Returned when invalid date Response data = {'code':'400','message':'Please check the parameter'}",
+	 *  }
+	 * )
+	 * @Route("/requests", name="hospital_request")
+	 * @Method({"POST"})
+	 */
+	public function newRequests(Request $request)
+	{
+		$hospital = $this->getUser();
+		$params['type'] = $request->request->get('type');
+		$params['blood_group'] = $request->request->get('blood_group');
+		$params['qty'] = $request->request->get('qty');
+		$params['patient_name'] = $request->request->get('patient_name');
+		$params['within_hours'] = $request->request->get('within_hours');
+		
+		$requests = new Requests();
+		$form = $this->createForm(RequestsType::class, $requests);
+		$form->submit($params);
+		if ($form->isValid()) {
+			$requests->setStatus(RequestsRepository::STATUS_PENDING);
+			$requests->setHospital($hospital);
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($requests);
 			$em->flush();
 	
 			return array('code'=>Response::HTTP_ACCEPTED, 'message'=>'Success');

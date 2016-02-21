@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Doctrine\DBAL\Types\DateTimeType;
 
 class RequestsType extends AbstractType
 {
@@ -17,11 +18,10 @@ class RequestsType extends AbstractType
         $builder
             ->add('type')
             ->add('qty')
-            ->add('patientName')
-            ->add('withinHours')
+            ->add('blood_group')
+            ->add('patient_name')
+            ->add('within_hours')
             ->add('status')
-            ->add('createdAt', 'datetime')
-            ->add('updatedAt', 'datetime')
             ->add('hospital')
         ;
     }
@@ -32,7 +32,12 @@ class RequestsType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Requests'
+            'data_class' => 'AppBundle\Entity\Requests',
+        		'csrf_protection'   => false,
+        		'allow_extra_fields' => true,
+        		'validation_groups' => array('Default'),
+        		'cascade_validation' => true,
+        		'error_bubbling' => true,
         ));
     }
 }

@@ -165,7 +165,7 @@ class Hospitals implements UserInterface
      */
     public function getUsername()
     {
-    	return $this->email;
+    	return $this->phno;
     }
     
     /**
