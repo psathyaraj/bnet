@@ -3,14 +3,18 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Hospitals
  *
  * @ORM\Table(name="hospitals")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\HospitalsRepository")
+ * @UniqueEntity("phno")
  */
-class Hospitals
+class Hospitals implements UserInterface
 {
     /**
      * @var int
@@ -154,5 +158,57 @@ class Hospitals
     public function getLongitude()
     {
         return $this->longitude;
+    }
+    
+    /**
+     * @inheritDoc
+     */
+    public function getUsername()
+    {
+    	return $this->email;
+    }
+    
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     * @return User
+     */
+    public function setSalt($salt)
+    {
+    	$this->salt = $salt;
+    
+    	return $this;
+    }
+    
+    /**
+     * @inheritDoc
+     */
+    public function getSalt()
+    {
+    	return null;
+    }
+    
+    /**
+     * @inheritDoc
+     */
+    public function getPassword()
+    {
+    	return null;
+    }
+    
+    /**
+     * @inheritDoc
+     */
+    public function getRoles()
+    {
+    	return array('ROLE_HOSPITAL');
+    }
+    
+    /**
+     * @inheritDoc
+     */
+    public function eraseCredentials()
+    {
     }
 }
