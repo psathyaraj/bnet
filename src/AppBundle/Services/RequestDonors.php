@@ -18,7 +18,8 @@ class RequestDonors
 
         }
     public function getDonors(){
-           $allowedDonorsBloodGroupArray =  RequestsRepository::$bloodTypeAndGroupArray[$this->bloodType][$this->bloodGroup];
+    	$bgroup = $this->bloodGroup!='' && $this->bloodGroup?$this->bloodGroup:1;
+           $allowedDonorsBloodGroupArray =  RequestsRepository::$bloodTypeAndGroupArray[$this->bloodType][$bgroup];
           
             $em = $this->container->get("doctrine")->getManager();
             $qb = $em->createQueryBuilder();
@@ -52,14 +53,16 @@ class RequestDonors
         $donorArray = array_map(function($value) {
                                       return $value["device_token"];
                                   }, $donorsArray);
+        $bgroup = $this->bloodGroup!='' && $this->bloodGroup?RequestsRepository::$bloodGroupNameArray[$this->bloodGroup]:'Any';
         
-        $message = "Need a ".RequestsRepository::$bloodGroupNameArray[$this->bloodGroup].' Group for '.RequestsRepository::$bloodTypeNameArray[$this->bloodType] .' at '.$hospital->getName();
+        $message = "Need a ".$bgroup.' Group for '.RequestsRepository::$bloodTypeNameArray[$this->bloodType] .' at '.$hospital->getName();
 
         $cmd='curl -u 508238fa0e2d56ceb8f50637604f406841e7010e1a2eb7b6: -H "Content-Type: application/json" -H "X-Ionic-Application-Id: 2cc52b27" https://push.ionic.io/api/v1/push -d \'{
                                 "tokens":[
                                   '.'"'.join("\",\"",$donorArray).'"'.'
                                 ],
                                 "notification":{
+                                  "alert":"'.$hospital->getName().'",
                                   "android":{
                                   "message":"'.$message.'",
                                   "sound":"donation",
@@ -70,13 +73,14 @@ class RequestDonors
                                       "hospitalLat":"'.$hospital->getLatitude().'",
                                       "hospitalLong":"'.$hospital->getLongitude().'",
                                       "request_id":"'.$requests->getId().'",
-                                      "bloodGroup":"'.RequestsRepository::$bloodGroupNameArray[$this->bloodGroup].'",
+                                      "bloodGroup":"'.$bgroup.'",
                                       "type":"'.RequestsRepository::$bloodTypeNameArray[$this->bloodType] .'",
                                       "dontationMessage":"'.$message.'"
                                     }
                                   }
                                 }
                               }\'';
+        
         exec($cmd,$result);
        
     }

@@ -32,7 +32,7 @@ class Requests
     /**
      * @var int
      *
-     * @ORM\Column(name="blood_group", type="integer")
+     * @ORM\Column(name="blood_group", type="integer", nullable=true)
      */
     private $blood_group;
 

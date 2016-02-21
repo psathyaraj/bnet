@@ -12,8 +12,8 @@ class RequestsRepository extends \Doctrine\ORM\EntityRepository
 {
 
 	const BG_WHOLE_BLOOD = 0;
-	const BG_PLASMA_BLOOD = 1;
-	const BG_PLATELETS_BLOOD = 2;
+	const BG_PLASMA_BLOOD = 2;
+	const BG_PLATELETS_BLOOD = 1;
 	
 	public static $bloodTypeNameArray = array(
 			self::BG_WHOLE_BLOOD => 'Blood',
