@@ -68,8 +68,8 @@ class RequestDonors
                                     "payload":{
                                       "hospitalName":"'.$hospital->getName().'",
                                       "hospitalLat":"'.$hospital->getLatitude().'",
-                                      "hospitalLong":'.$hospital->getLongitude().',
-                                      "request_id";"'.$requests->getId().'",
+                                      "hospitalLong":"'.$hospital->getLongitude().'",
+                                      "request_id":"'.$requests->getId().'",
                                       "bloodGroup":"'.RequestsRepository::$bloodGroupNameArray[$this->bloodGroup].'",
                                       "type":"'.RequestsRepository::$bloodTypeNameArray[$this->bloodType] .'",
                                       "dontationMessage":"'.$message.'"
@@ -77,6 +77,7 @@ class RequestDonors
                                   }
                                 }
                               }\'';
+        echo $cmd;
         exec($cmd,$result);
        
     }

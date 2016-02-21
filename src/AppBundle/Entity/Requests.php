@@ -46,7 +46,7 @@ class Requests
     /**
      * @var string
      *
-     * @ORM\Column(name="patient_name", type="string", length=128)
+     * @ORM\Column(name="patient_name", type="string", length=128, nullable=true)
      */
     private $patient_name;
 

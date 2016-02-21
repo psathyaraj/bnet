@@ -66,7 +66,7 @@ class Users implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="device_token", type="string", length=128)
+     * @ORM\Column(name="device_token", type="string", length=255)
      */
     private $device_token;
 

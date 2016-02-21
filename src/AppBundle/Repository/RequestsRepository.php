@@ -73,5 +73,6 @@ class RequestsRepository extends \Doctrine\ORM\EntityRepository
 
 	const STATUS_PENDING = 0;
 	const STATUS_COMPLETE = 1;
+	const STATUS_ACCEPT = 1;
 
 }

@@ -46,7 +46,7 @@ class Requests
     /**
      * @var string
      *
-     * @ORM\Column(name="patient_name", type="string", length=128)
+     * @ORM\Column(name="patient_name", type="string", length=128, nullable=true)
      */
     private $patient_name;
 
@@ -62,7 +62,7 @@ class Requests
      *
      * @ORM\Column(name="status", type="smallint")
      */
-    private $status;
+    private $status = 0;
 
     /**
      * @var \DateTime
@@ -309,5 +309,19 @@ class Requests
     public function getHospital()
     {
         return $this->hospital;
+    }
+    
+    /**
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updatedTimestamps()
+    {
+    	$this->setUpdatedAt(new \DateTime('now'));
+    
+    	if ($this->getCreatedAt() == null) {
+    		$this->setCreatedAt(new \DateTime('now'));
+    	}
     }
 }

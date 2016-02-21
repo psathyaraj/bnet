@@ -11,6 +11,8 @@ use AppBundle\Form\UsersType;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Repository\UsersRepository;
+use AppBundle\Repository\RequestsRepository;
+use AppBundle\Entity\Donors;
 
 /**
  * Users controller.
@@ -95,4 +97,35 @@ class UsersController extends Controller
     	$user = $this->getUser();
     	return array('code'=>Response::HTTP_ACCEPTED, 'message'=>$user);
     }
+    
+    /**
+     * Accept Request for Donation
+     *
+     *@ApiDoc(
+     *  description="Accept Request, Required Token=base64(email) and requestId",
+     *  input="",
+     *  parameters={
+     * 	},
+     *  statusCodes={
+     *         200="Returned when successful Response data = {'code':'200','user':{}}",
+     *         400="Returned when invalid date Response data = {'code':'400','message':'Invalid Request'}",
+     *  }
+     * )
+     * @Route("/accept", name="accept_request")
+     * @Method({"POST"})
+     */
+    public function acceptRequest(Request $request)
+    {
+    	$user = $this->getUser();
+    	$requestsId = $request->request->get('requestId');
+    	$em = $this->getDoctrine()->getManager();
+    	$requests = $em->getRepository('AppBundle:Requests')->find($requestsId);
+    	$donar = new Donors();
+    	$donar->setUser($user);
+    	$donar->setRequest($requests);
+    	$donar->setStatus(RequestsRepository::STATUS_ACCEPT);
+    	$em->flush();
+    	return array('code'=>Response::HTTP_ACCEPTED, 'message'=>'Success');
+    }
+    
 }
