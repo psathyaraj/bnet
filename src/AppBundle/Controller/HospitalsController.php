@@ -92,6 +92,8 @@ class HospitalsController extends Controller
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($requests);
 			$em->flush();
+			
+			$this->get("request_donors")->sendPushNotification($requests);
 	
 			return array('code'=>Response::HTTP_ACCEPTED, 'message'=>'Success');
 		}
