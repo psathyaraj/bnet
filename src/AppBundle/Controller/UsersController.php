@@ -11,7 +11,6 @@ use AppBundle\Form\UsersType;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Repository\UsersRepository;
-use AppBundle\Entity\LastDonations;
 
 /**
  * Users controller.

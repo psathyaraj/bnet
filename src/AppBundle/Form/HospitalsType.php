@@ -28,7 +28,12 @@ class HospitalsType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Hospitals'
+            'data_class' => 'AppBundle\Entity\Hospitals',
+        		'csrf_protection'   => false,
+        		'allow_extra_fields' => true,
+        		'validation_groups' => array('Default'),
+        		'cascade_validation' => true,
+        		'error_bubbling' => true,
         ));
     }
 }

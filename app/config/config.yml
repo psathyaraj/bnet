@@ -67,29 +67,6 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
-
-
-# GCM Push notification Configuration
-rms_push_notifications:
-  android:
-      timeout: 5 # Seconds to wait for connection timeout, default is 5
-      gcm:
-          api_key: "AIzaSyCv-hWKQ_3B4jllxlyAqIsaCdNYkrVOYXI" # This is titled "Server Key" when creating it
-          use_multi_curl: true # default is true
-
-# QR code configuration
-endroid_qr_code:
-    size: 100
-    padding: 10
-    extension: gif
-    error_correction_level: high
-    foreground_color: { r: 0, g: 0, b: 0, a: 0 }
-    background_color: { r: 255, g: 255, b: 255, a: 0 }
-    label: "My label"
-    label_font_size: 16
-
-nelmio_api_doc: ~
-
     
 fos_rest:
     disable_csrf_role: ROLE_API
@@ -121,4 +98,3 @@ fos_rest:
     access_denied_listener:
         json: true
     body_listener: true
-
