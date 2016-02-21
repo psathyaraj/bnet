@@ -77,7 +77,6 @@ class RequestDonors
                                   }
                                 }
                               }\'';
-        echo $cmd;
         exec($cmd,$result);
        
     }
