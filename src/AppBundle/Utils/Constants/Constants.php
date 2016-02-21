@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\Utils\Constants;
+namespace AppBundle\Utils;
 
 Class Constants
 {	
@@ -11,11 +11,5 @@ Class Constants
 	const SLOT_BOOKED = 2;
 	const SLOT_BREAK = 3;
 	const SLOT_OFFER = 4;
-	
-	public static $genderMap = array(
-			self::GENDER_FEMALE => 'Female',
-			self::GENDER_MALE => 'Male',
-			self::GENDER_UNISEX => 'Unisex'
-	);
-	
-}
+
+	}

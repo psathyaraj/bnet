@@ -10,4 +10,46 @@ namespace AppBundle\Repository;
  */
 class RequestsRepository extends \Doctrine\ORM\EntityRepository
 {
+const BG_WHOLE_BLOOD = 0;
+	const BG_PLASMA_BLOOD = 1;
+	const BG_PLATELETS_BLOOD = 2;
+
+
+	public static $bloodTypeAndGroupArray = array(
+			self::BG_WHOLE_BLOOD => array(
+				1 => array(1,2,3,4,5,6,7,8),
+				2 => array(2,4,6,8),
+				3 => array(3,4,7,8),
+				4 => array(4,8),
+				5 => array(5,6,7,8),
+				6 => array(6,8),
+				7 => array(7,8),
+				8 => array(8)
+
+			),
+			self::BG_PLASMA_BLOOD => array(
+            				1 => array(1,2),
+            				2 => array(1,2),
+            				3 => array(2,3,4,1),
+            				4 => array(2,3,4,1),
+            				5 => array(5,6,1,2),
+            				6 => array(5,6,1,2),
+            				7 => array(1,2,3,4,5,6,7,8),
+            				8 => array(1,2,3,4,5,6,7,8)
+
+            			),
+            self::BG_PLATELETS_BLOOD => array(
+                        				1 => array(1,2,3,4,5,6,7,8),
+                        				2 => array(1,2,3,4,5,6,7,8),
+                        				3 => array(1,2,3,4,5,6,7,8),
+                        				4 => array(1,2,3,4,5,6,7,8),
+                        				5 => array(1,2,3,4,5,6,7,8),
+                        				6 => array(1,2,3,4,5,6,7,8),
+                        				7 => array(1,2,3,4,5,6,7,8),
+                        				8 => array(1,2,3,4,5,6,7,8)
+
+                        			)
+	);
+
+
 }

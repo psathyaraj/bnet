@@ -41,7 +41,7 @@ class RequestsController extends Controller
      */
     public function newAction(Request $request)
     {
-        $this->get("request_donors")->sendPushNotification("1","1");
+        $this->get("request_donors")->sendPushNotification(3,1);
         /*$request = new Requests();
         $form = $this->createForm('AppBundle\Form\RequestsType', $request);
         $form->handleRequest($request);
@@ -59,7 +59,9 @@ class RequestsController extends Controller
             'form' => $form->createView(),
         ));*/
 
-        die("11111");
+       return $this->render('requests/new.html.twig', array(
+                           'request' => $request
+               ));
     }
 
 
