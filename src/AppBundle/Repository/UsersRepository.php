@@ -21,6 +21,7 @@ class UsersRepository extends \Doctrine\ORM\EntityRepository
 	
 	public function loadUserByAuthToken($token){
 		$email = base64_decode($token);
+		echo $email;
 		$q = $this
 		->createQueryBuilder('u')
 		->where('u.email = :email')

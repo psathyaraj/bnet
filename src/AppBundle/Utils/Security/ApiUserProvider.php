@@ -27,8 +27,16 @@ class ApiUserProvider implements UserProviderInterface
 			);
 		}
 		
-		return $this->em->getRepository('AppBundle:Users')->loadUserByAuthToken($username);
+		$request = Request::createFromGlobals();
+		$api = explode("/", $request->getPathInfo());
 		
+		if (isset($api) && $api['3'] == "users") {
+			return $this->em->getRepository('AppBundle:Users')->loadUserByAuthToken($username);
+		}
+		
+		if (isset($api) && $api['3'] == "hospitals") {
+			return $this->em->getRepository('AppBundle:Hospitals')->loadUserByAuthToken($username);
+		}
 	}
 
 	public function refreshUser(UserInterface $user)

@@ -34,7 +34,7 @@ class Requests
      *
      * @ORM\Column(name="blood_group", type="integer")
      */
-    private $bloodGroup;
+    private $blood_group;
 
     /**
      * @var int
@@ -48,21 +48,21 @@ class Requests
      *
      * @ORM\Column(name="patient_name", type="string", length=128)
      */
-    private $patientName;
+    private $patient_name;
 
     /**
      * @var int
      *
      * @ORM\Column(name="within_hours", type="smallint")
      */
-    private $withinHours;
+    private $within_hours;
     
     /**
      * @var int
      *
      * @ORM\Column(name="status", type="smallint")
      */
-    private $status;
+    private $status = 0;
 
     /**
      * @var \DateTime
@@ -144,6 +144,30 @@ class Requests
     }
 
     /**
+     * Set bloodGroup
+     *
+     * @param integer $bloodGroup
+     *
+     * @return Requests
+     */
+    public function setBloodGroup($bloodGroup)
+    {
+        $this->blood_group = $bloodGroup;
+
+        return $this;
+    }
+
+    /**
+     * Get bloodGroup
+     *
+     * @return integer
+     */
+    public function getBloodGroup()
+    {
+        return $this->blood_group;
+    }
+
+    /**
      * Set patientName
      *
      * @param string $patientName
@@ -152,7 +176,7 @@ class Requests
      */
     public function setPatientName($patientName)
     {
-        $this->patientName = $patientName;
+        $this->patient_name = $patientName;
 
         return $this;
     }
@@ -164,7 +188,7 @@ class Requests
      */
     public function getPatientName()
     {
-        return $this->patientName;
+        return $this->patient_name;
     }
 
     /**
@@ -176,7 +200,7 @@ class Requests
      */
     public function setWithinHours($withinHours)
     {
-        $this->withinHours = $withinHours;
+        $this->within_hours = $withinHours;
 
         return $this;
     }
@@ -184,11 +208,35 @@ class Requests
     /**
      * Get withinHours
      *
-     * @return int
+     * @return integer
      */
     public function getWithinHours()
     {
-        return $this->withinHours;
+        return $this->within_hours;
+    }
+
+    /**
+     * Set status
+     *
+     * @param integer $status
+     *
+     * @return Requests
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 
     /**
@@ -262,30 +310,6 @@ class Requests
     {
         return $this->hospital;
     }
-
-    /**
-     * Set status
-     *
-     * @param integer $status
-     *
-     * @return Requests
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return integer
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
     
     /**
      *
@@ -299,29 +323,5 @@ class Requests
     	if ($this->getCreatedAt() == null) {
     		$this->setCreatedAt(new \DateTime('now'));
     	}
-    }
-
-    /**
-     * Set bloodGroup
-     *
-     * @param integer $bloodGroup
-     *
-     * @return Requests
-     */
-    public function setBloodGroup($bloodGroup)
-    {
-        $this->bloodGroup = $bloodGroup;
-
-        return $this;
-    }
-
-    /**
-     * Get bloodGroup
-     *
-     * @return integer
-     */
-    public function getBloodGroup()
-    {
-        return $this->bloodGroup;
     }
 }

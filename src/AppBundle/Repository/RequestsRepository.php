@@ -10,6 +10,7 @@ namespace AppBundle\Repository;
  */
 class RequestsRepository extends \Doctrine\ORM\EntityRepository
 {
+
 const BG_WHOLE_BLOOD = 0;
 	const BG_PLASMA_BLOOD = 1;
 	const BG_PLATELETS_BLOOD = 2;
@@ -51,5 +52,9 @@ const BG_WHOLE_BLOOD = 0;
                         			)
 	);
 
+
+
+	const STATUS_PENDING = 0;
+	const STATUS_COMPLETE = 1;
 
 }

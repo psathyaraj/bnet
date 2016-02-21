@@ -67,7 +67,7 @@ class UsersController extends Controller
         	$em->persist($user);
         	$em->flush();
 
-            return array('code'=>Response::HTTP_ACCEPTED, 'message'=>'Success');
+            return array('code'=>Response::HTTP_CREATED, 'message'=>'Success');
         }
 
         return array('code'=>Response::HTTP_BAD_REQUEST, 'message'=>'Please check the parameter');

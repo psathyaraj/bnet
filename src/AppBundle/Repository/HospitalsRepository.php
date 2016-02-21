@@ -10,4 +10,22 @@ namespace AppBundle\Repository;
  */
 class HospitalsRepository extends \Doctrine\ORM\EntityRepository
 {
+	
+	public function loadUserByAuthToken($token){
+		$phno = base64_decode($token);
+		
+		$q = $this
+		->createQueryBuilder('h')
+		->where('h.phno = :phno')
+		->setParameter('phno', $phno)
+		->getQuery()
+		;
+	
+		try {
+			$hospital = $q->getSingleResult();
+		} catch (\Exception $e) {
+			throw new HttpException(Response::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage());
+		}
+		return $hospital;
+	}
 }

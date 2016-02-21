@@ -8,7 +8,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Requests;
 use AppBundle\Form\RequestsType;
-use Endroid\QrCode\QrCode;
 /**
  * Requests controller.
  *
